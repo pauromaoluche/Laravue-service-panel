@@ -2,5 +2,6 @@
   <router-view/>
 </template>
 
-<style>
+<style lang="scss" src="./style.scss" scoped>
+
 </style>
