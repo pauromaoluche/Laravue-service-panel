@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Guard from '@/services/middleware'
+import Guard from '@/Services/middleware'
 
 const routes = [{
         path: '/',
         name: 'home',
         component: () =>
-            import ('../components/HelloWorld.vue'),
+            import ('../Views/Home/HomeView.vue'),
     },
     {
         path: '/login',
         name: 'login',
         component: () =>
-            import ('../views/Login/LoginView.vue')
+            import ('../Views/Login/LoginView.vue')
     },
 ]
 
