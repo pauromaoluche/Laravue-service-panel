@@ -3,8 +3,9 @@
     <NavBarComponent></NavBarComponent>
 
     <SideBarComponent></SideBarComponent>
-    <div id="main" class="main">
-        
+    <div id="main" class="main content-page">
+        <slot name="page-slot">
+        </slot>
     </div>
     <FooterComponent></FooterComponent>
 </template>
@@ -12,6 +13,7 @@
 import SideBarComponent from './Components/SideBarComponent.vue'
 import NavBarComponent from './Components/NavBarComponent.vue'
 import FooterComponent from './Components/FooterComponent.vue';
+
 export default {
     name: 'DashboardComponent',
     components: {

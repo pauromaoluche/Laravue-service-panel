@@ -5,6 +5,7 @@ import router from './Router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import axios from 'axios'
+import './Assets/scss/_main.scss'
 
 
 import { library } from '@fortawesome/fontawesome-svg-core'
