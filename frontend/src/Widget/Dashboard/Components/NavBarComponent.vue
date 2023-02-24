@@ -24,9 +24,11 @@
                 </div>
                 <div class="offcanvas-body">
                     <div class="container d-flex justify-content-end">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>A.N.O.D</option>
-                            <option value="1">A.N.S</option>
+
+                        <select v-model="selected" @change="onChange($event)" class="form-select" aria-label="Default select example">
+                            <option value="0">Selecione um</option>
+                            <option value="1">A.N.O.D</option>
+                            <option value="2">A.N.S</option>
                         </select>
                         <select class="form-select" aria-label="Default select example">
                             <option selected>Setor</option>
@@ -48,13 +50,26 @@
 </template>
 <script>
 
-
+//import mitt from 'mitt'
+//const emitter = mitt()
 export default {
-    name: 'NavBarComponent'
+    name: 'NavBarComponent',
+    emits: ['emitData'],
+    data() {
+        return {
+            selected: '0'
+        };
+    },
+
+    methods: {
+        onChange(event){
+            // emitter.emit('filters', event.target.value)
+            this.$emit('emitData', event.target.value)
+        }
+    }
 }
 
 </script>
-    
 <style lang="scss" scoped>
 .header {
     transition: all 0.5s;
@@ -132,7 +147,7 @@ export default {
         }
     }
 
-    .form-select{
+    .form-select {
         width: 150px;
         margin-left: 10px;
     }
