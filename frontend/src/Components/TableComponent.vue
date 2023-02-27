@@ -21,7 +21,7 @@
             </thead>
             <tbody>
 
-                <tr v-for="user in users" :key="user.id" class="table-sm">
+                <tr v-for="user in data" :key="user.id" class="table-sm">
                     <th scope="row">{{ user.id }}</th>
                     <td>{{ user.title }}</td>
                     <td>{{ user.price }}</td>
@@ -40,7 +40,7 @@
 export default {
     name: "TableComponent",
     props: {
-        users: Array
+        data: Array
     }
 }
 

@@ -1,7 +1,7 @@
 <template>
     <DashboardComponent @filtersData="filter">
         <template v-slot:page-slot>
-            <TableComponent :users="users"></TableComponent>
+            <TableComponent :data="users"></TableComponent>
         </template>
 
     </DashboardComponent>
