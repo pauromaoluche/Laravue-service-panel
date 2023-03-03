@@ -25,7 +25,8 @@
                 <div class="offcanvas-body">
                     <div class="container d-flex justify-content-end">
 
-                        <select v-model="selected" @change="onChange($event)" class="form-select" aria-label="Default select example">
+                        <select v-model="selected" @change="onChange1($event)" class="form-select"
+                            aria-label="Default select example">
                             <option value="0">Selecione um</option>
                             <option value="1">A.N.O.D</option>
                             <option value="2">A.N.S</option>
@@ -36,11 +37,10 @@
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Selecionar o Analista</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select v-model="selectedUser" class="form-select" @change="onChange2($event)" aria-label="Default select example">
+                            <option value="0">Todos</option>
+                            <option v-for="user in data" :key="user.id" >{{ user.name }}</option>
+                            <!-- <option v-for="(user, index) in data" :key="index" > {{ index }} {{ user.name }}</option> -->
                         </select>
                     </div>
                 </div>
@@ -49,22 +49,43 @@
     </header>
 </template>
 <script>
+import api from '@/main'
 
 //import mitt from 'mitt'
 //const emitter = mitt()
 export default {
     name: 'NavBarComponent',
-    emits: ['emitData'],
+    emits: ['emitData', 'emitUser'],
     data() {
         return {
-            selected: '0'
+            data: [],
+            selected: 0,
+            selectedUser: 0
         };
     },
 
+    mounted() {
+        this.getAtends()
+    },
+
     methods: {
-        onChange(event){
-            // emitter.emit('filters', event.target.value)
-            this.$emit('emitData', event.target.value)
+        onChange1(event) {
+            this.$emit('emitData', event.target.value);
+            this.selectedUser = '0'
+        },
+
+        onChange2(event) {
+            this.$emit('emitUser', event.target.value);
+        },
+
+
+        async getAtends() {
+            const resp = await api.get('users')
+            if (resp.status == 200) {
+                this.data = resp.data
+            } else {
+                console.error("erro na api")
+            }
         }
     }
 }
