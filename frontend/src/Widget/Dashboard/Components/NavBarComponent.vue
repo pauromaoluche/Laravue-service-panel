@@ -27,9 +27,9 @@
 
                         <select v-model="selected" @change="onChange1($event)" class="form-select"
                             aria-label="Default select example">
-                            <option value="0">Selecione um</option>
-                            <option value="1">A.N.O.D</option>
-                            <option value="2">A.N.S</option>
+                            <option value=0>Selecione um</option>
+                            <option value=1>A.N.O.D</option>
+                            <option value=2>A.N.S</option>
                         </select>
                         <select class="form-select" aria-label="Default select example">
                             <option selected>Setor</option>
@@ -37,9 +37,10 @@
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
-                        <select v-model="selectedUser" class="form-select" @change="onChange2($event)" aria-label="Default select example">
-                            <option value="0">Todos</option>
-                            <option v-for="user in data" :key="user.id" >{{ user.name }}</option>
+                        <select v-model="selectedUser" class="form-select" @change="onChange2($event)"
+                            aria-label="Default select example">
+                            <option value=0>Todos</option>
+                            <option v-for="user in data" :key="user.id">{{ user.name }}</option>
                             <!-- <option v-for="(user, index) in data" :key="index" > {{ index }} {{ user.name }}</option> -->
                         </select>
                     </div>
@@ -75,7 +76,12 @@ export default {
         },
 
         onChange2(event) {
-            this.$emit('emitUser', event.target.value);
+            if (this.selected == 0 || this.selected == 2) {
+                this.selectedUser = '0'
+            } else {
+                this.$emit('emitUser', event.target.value);
+            }
+
         },
 
 

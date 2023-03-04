@@ -1,7 +1,7 @@
 <template>
     <DashboardComponent @filtersData="filter" @filterUser="usersFilter">
         <template v-slot:page-slot>
-            <TableComponent :data="data"></TableComponent>
+            <TableComponent :data="itemFiltred"></TableComponent>
         </template>
     </DashboardComponent>
 </template>
@@ -24,32 +24,37 @@ export default {
         }
     },
 
-    methods: {
-        async usersFilter(filterUser) {
-            this.filterUsers = filterUser
-            // alert(this.filterUsers);
+    computed: {
+        itemFiltred() {
+            let filtros = [];
+            filtros = this.data;
             if (this.filterUsers.trim().length > 0) {
                 if (this.filtersData != 0) {
                     if (this.filterUsers == 0) {
-                        await this.getAtends();
+                        filtros = this.data;
                     } else {
-                        await this.getAtends();
-                        this.data = this.data.filter(data => {
-                            return data.user.name.includes(filterUser)
+                        filtros = this.data.filter(data => {
+                            return data.user.name.includes(this.filterUsers)
                         })
-                        // console.log(JSON.parse(JSON.stringify(this.data)))
                     }
                 } else {
                     alert("Selecione um filtro")
                 }
             }
-
+            return filtros
         },
+    },
 
-        filter(filtersData) {
+    methods: {
+        usersFilter(filterUser) {
+            this.filterUsers = filterUser
+        },
+        async filter(filtersData) {
             this.filtersData = filtersData
-            if (this.filtersData == 1) {
-                this.getAtends()
+            if (this.filtersData == 0) {
+                this.data = []
+            } else if (this.filtersData == 1) {
+                await this.getAtends()
 
             } else if (filtersData == 2) {
                 this.data = []
@@ -60,7 +65,6 @@ export default {
             const resp = await api.get('atend')
             if (resp.status == 200) {
                 this.data = resp.data
-                //console.log(this.data)
             } else {
                 console.error("erro na api")
             }
