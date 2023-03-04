@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('provedors', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
+            $table->string('nome')->unique();
             $table->string('desc');
             $table->timestamps();
         });
