@@ -9,6 +9,7 @@ class Atendimento extends Model
 {
 
     protected $fillable = [
+        'setor_id',
         'provedor_id',
         'prioridade',
         'protocolo',
@@ -17,9 +18,12 @@ class Atendimento extends Model
         'user_id'
     ];
 
+    protected $hidden = [
+        'updated_at',
+    ];
+
     protected $casts = [
         'created_at'  => 'date:d-m-Y',
-        'updated_at' => 'date:d-m-Y',
         'data_prev' => 'date:d-m-Y',
     ];
 
@@ -33,5 +37,9 @@ class Atendimento extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function setor(){
+        return $this->belongsTo(Setor::class);
     }
 }

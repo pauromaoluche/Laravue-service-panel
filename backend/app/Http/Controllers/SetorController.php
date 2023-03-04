@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\Atendimento;
+use App\Models\Setor;
 use Illuminate\Http\Request;
 
-
-class AtendimentosController extends Controller
+class SetorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +14,19 @@ class AtendimentosController extends Controller
      */
     public function index()
     {
+        $setor = Setor::get();
 
-        $atendimentos = Atendimento::with(['provedor', 'user', 'setor'])->get();
+        return $setor;
+    }
 
-        // $atendimentos = Atendimento::join('provedors', 'provedors.id', '=', 'atendimentos.provedor_id')
-        //     ->join('users', 'users.id', '=', 'atendimentos.user_id')
-        //     ->get(['provedors.nome as provedor', 'atendimentos.*', 'users.name']);
-        return $atendimentos;
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -34,30 +38,40 @@ class AtendimentosController extends Controller
     public function store(Request $request)
     {
         $dados = $request->all();
-        Atendimento::create($dados);
+        Setor::create($dados);
+        return $dados;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Setor  $setor
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Setor $setor)
     {
-        $atendimentos = Atendimento::with(['provedor', 'user', 'setor'])->where('id', $id)->get();
+        //
+    }
 
-        return $atendimentos;
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Setor  $setor
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Setor $setor)
+    {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Setor  $setor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Setor $setor)
     {
         //
     }
@@ -65,13 +79,11 @@ class AtendimentosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Setor  $setor
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Setor $setor)
     {
-        $atendimentos = Atendimento::find($id);
-    
-        $atendimentos->delete();
+        //
     }
 }
