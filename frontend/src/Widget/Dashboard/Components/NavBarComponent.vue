@@ -31,16 +31,15 @@
                             <option value=1>A.N.O.D</option>
                             <option value=2>A.N.S</option>
                         </select>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Setor</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select v-model="selectedSetor" @change="onChange2($event)" class="form-select"
+                            aria-label="Default select example">
+                            <option value=0>Setores</option>
+                            <option v-for="setor in setor" :key="setor.id" :value="setor.id">{{ setor.nome }}</option>
                         </select>
-                        <select v-model="selectedUser" class="form-select" @change="onChange2($event)"
+                        <select v-model="selectedUser" class="form-select" @change="onChange3($event)"
                             aria-label="Default select example">
                             <option value=0>Todos</option>
-                            <option v-for="user in data" :key="user.id">{{ user.name }}</option>
+                            <option v-for="user in itemFiltred" :key="user.id">{{ user.name }}</option>
                             <!-- <option v-for="(user, index) in data" :key="index" > {{ index }} {{ user.name }}</option> -->
                         </select>
                     </div>
@@ -56,39 +55,79 @@ import api from '@/main'
 //const emitter = mitt()
 export default {
     name: 'NavBarComponent',
-    emits: ['emitData', 'emitUser'],
+    emits: ['emitData', 'emitUser', 'emitSetor'],
     data() {
         return {
-            data: [],
+            user: [],
+            setor: [],
             selected: 0,
-            selectedUser: 0
+            selectedUser: 0,
+            selectedSetor: 0
         };
     },
 
+    computed: {
+        itemFiltred() {
+            let filtros = [];
+            filtros = this.user
+            //Filtro de setores, caso seja 0, retorna todos atendimentos
+            if (this.selected == 0 || this.selectedSetor == 0) {
+                filtros = this.user
+            } else {
+                filtros = this.user.filter(data => {
+                    return data.setor_id == this.selectedSetor
+                })
+            }
+
+            return filtros
+
+        },
+    },
+
     mounted() {
-        this.getAtends()
+        this.getUsers();
+        this.getSetors();
     },
 
     methods: {
         onChange1(event) {
             this.$emit('emitData', event.target.value);
-            this.selectedUser = '0'
+            this.selectedUser = 0
+            this.selectedSetor = 0
         },
 
-        onChange2(event) {
+        async onChange2(event) {
             if (this.selected == 0 || this.selected == 2) {
-                this.selectedUser = '0'
+                this.selectedSetor = 0
+                this.selectedUser = 0
+            } else {
+                this.selectedUser = 0
+                this.$emit('emitSetor', event.target.value);
+
+            }
+        },
+
+        onChange3(event) {
+            if (this.selected == 0 || this.selectedSetor == 0) {
+                this.selectedUser = 0
             } else {
                 this.$emit('emitUser', event.target.value);
             }
-
         },
 
-
-        async getAtends() {
+        async getUsers() {
             const resp = await api.get('users')
             if (resp.status == 200) {
-                this.data = resp.data
+                this.user = resp.data
+            } else {
+                console.error("erro na api")
+            }
+        },
+
+        async getSetors() {
+            const resp = await api.get('setors')
+            if (resp.status == 200) {
+                this.setor = resp.data
             } else {
                 console.error("erro na api")
             }

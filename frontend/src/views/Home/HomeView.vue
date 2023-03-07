@@ -1,5 +1,5 @@
 <template>
-    <DashboardComponent @filtersData="filter" @filterUser="usersFilter">
+    <DashboardComponent @filtersSetor="setorsFilter" @filtersData="datasFilter" @filterUser="usersFilter">
         <template v-slot:page-slot>
             <TableComponent :data="itemFiltred"></TableComponent>
         </template>
@@ -18,8 +18,9 @@ export default {
 
     data() {
         return {
-            filterUsers: '',
-            filtersData: 0,
+            users: 0,
+            atends: 0,
+            setors: 0,
             data: [],
         }
     },
@@ -27,18 +28,29 @@ export default {
     computed: {
         itemFiltred() {
             let filtros = [];
+            let user = 0;
+            user = this.users;
             filtros = this.data;
-            if (this.filterUsers.trim().length > 0) {
-                if (this.filtersData != 0) {
-                    if (this.filterUsers == 0) {
-                        filtros = this.data;
+            //Verifica atendimentos para selecionar setores
+            if (this.atends != 0) {
+                //Verifica setores para selecionar usuarios
+                if (this.setors != 0) {
+                    //Tras todos atendimentos com o base no id do setor
+                    filtros = this.data.filter(data => {
+                        return data.setor_id == this.setors
+                    })
+                    if (user != 0) {
+                        //Tras todos usuarios vinculados a aquele setor
+                        filtros = this.data.filter(data => {
+                            return data.user.name.includes(user)
+                        })
                     } else {
                         filtros = this.data.filter(data => {
-                            return data.user.name.includes(this.filterUsers)
+                            return data.setor_id == this.setors
                         })
                     }
                 } else {
-                    alert("Selecione um filtro")
+                    filtros = this.data;
                 }
             }
             return filtros
@@ -47,17 +59,25 @@ export default {
 
     methods: {
         usersFilter(filterUser) {
-            this.filterUsers = filterUser
+            this.users = filterUser
         },
-        async filter(filtersData) {
-            this.filtersData = filtersData
-            if (this.filtersData == 0) {
+
+        setorsFilter(filtersSetor) {
+            this.users = 0
+            this.setors = filtersSetor
+        },
+
+        async datasFilter(filtersData) {
+            this.atends = filtersData
+            if (this.atends == 0) {
                 this.data = []
-            } else if (this.filtersData == 1) {
+                this.setors = []
+            } else if (this.atends == 1) {
                 await this.getAtends()
 
-            } else if (filtersData == 2) {
+            } else if (this.atends == 2) {
                 this.data = []
+                this.setors = []
             }
         },
 

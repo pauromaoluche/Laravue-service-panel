@@ -19,7 +19,7 @@ export default {
 
   data() {
     return {
-      email: 'ryan.colton@example.net',
+      email: 'eusebio.murphy@example.org',
       password: 'password'
     };
   },

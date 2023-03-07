@@ -1,5 +1,5 @@
 <template>
-    <NavBarComponent @emitData="filter" @emitUser="users">
+    <NavBarComponent @emitSetor="setor" @emitData="filter" @emitUser="users">
     </NavBarComponent>
 
     <SideBarComponent></SideBarComponent>
@@ -18,7 +18,7 @@ import FooterComponent from './Components/FooterComponent.vue';
 
 export default {
     name: 'DashboardComponent',
-    emits: ['filtersData', 'filterUser'],
+    emits: ['filtersData', 'filterUser', 'filtersSetor'],
     data() {
         return {
         };
@@ -39,6 +39,10 @@ export default {
 
         users(emitUser){
             this.$emit('filterUser', emitUser)
+        },
+
+        setor(emitSetor){
+            this.$emit('filtersSetor', emitSetor)
         }
     }
 }
