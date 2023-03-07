@@ -24,4 +24,9 @@ class Setor extends Model
     {
         return $this->hasMany(Atendimento::class);
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

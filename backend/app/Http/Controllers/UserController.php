@@ -44,6 +44,7 @@ class UserController extends Controller
         $user->name = $input['name'];
         $user->email = $input['email'];
         $user->password = bcrypt($input['password']);
+        $user->setor_id = $input['setor_id'];
         $user->email_verified_at = now();
         $user->remember_token = Str::random(10);
         $user->save();

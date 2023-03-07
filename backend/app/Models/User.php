@@ -22,6 +22,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'setor_id'
     ];
 
     /**
@@ -65,5 +66,10 @@ class User extends Authenticatable implements JWTSubject
     public function atendimentos()
     {
         return $this->hasMany(Atendimento::class);
+    }
+
+    public function setor()
+    {
+        return $this->belongsTo(Setor::class);
     }
 }
