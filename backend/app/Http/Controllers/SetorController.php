@@ -14,7 +14,7 @@ class SetorController extends Controller
      */
     public function index()
     {
-        $setor = Setor::get();
+        $setor = Setor::with(['user', 'atendimento'])->get();
 
         return $setor;
     }

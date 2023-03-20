@@ -20,12 +20,12 @@ class Setor extends Model
 
     use HasFactory;
 
-    public function atendimentos()
+    public function atendimento()
     {
         return $this->hasMany(Atendimento::class);
     }
 
-    public function users()
+    public function user()
     {
         return $this->hasMany(User::class);
     }
