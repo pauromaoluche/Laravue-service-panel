@@ -15,10 +15,8 @@
             </thead>
             <tbody>
 
-                <button type="button" class="btn btn-primary" @click="abrirModal">Abrir modal</button>
-                <ModalComponent @func="fecharModal" v-model:display="display" :display="display" :aberto="modalAberto"
-                    titulo="Meu modal dinâmico">
-                    <p>Aqui vai o conteúdo do modal</p>
+                <ModalComponent @func="fecharModal" :display="display" :aberto="modalAberto"
+                    :atend="itemFiltred">
                 </ModalComponent>
                 <tr v-for="atend in data" :key="atend.id" class="table-sm">
                     <th scope="row">{{ atend.protocolo }}</th>
@@ -38,7 +36,7 @@
                     <td>{{ atend.user.name }}</td>
 
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <button type="button" class="btn btn-outline-success">Ver</button>
+                        <button type="button" class="btn btn-outline-success" @click="abrirModal(atend.id)">Ver</button>
                         <button type="button" class="btn btn-outline-primary">Editar</button>
                         <button type="button" class="btn btn-outline-danger">Excluir</button>
                     </div>
@@ -61,25 +59,58 @@ export default {
         return {
             body: "teste",
             modalAberto: false,
+            atend: 0,
+
+            // protocolo: 0,
+            // titulo: '',
+            // provedor: '',
+            // data_cria: '',
+            // status: '',
+            // analista: '',
             display: true,
-            onConfirm: () => {
-                console.log('Modal confirmed');
-            }
         }
     },
+
+    computed: {
+        itemFiltred() {
+            let filtros = [];
+            filtros = this.data;
+            if (this.atend != 0) {
+                filtros = this.data.filter(data => {
+                    return data.id == this.atend
+                })
+            }
+            return filtros
+        },
+    },
+
     methods: {
         fecharModal() {
             setTimeout(() => this.modalAberto = false, 10);
             setTimeout(() => this.display = true, 200);
         },
-        abrirModal() {
+        abrirModal(id) {
             this.display = false,
                 setTimeout(() => this.modalAberto = true, 100);
-        },
-    },
-    computed: {
+            this.atend = id
+            // this.atend = this.data.find(data => data.id = id);
 
-    }
+            // filtros = JSON.parse(JSON.stringify(this.data.find(data => data.id = id)));
+
+            // console.log(filtros.provedor.nome)
+            // this.atend = filtros
+            // this.atend = JSON.parse(JSON.stringify(this.atend))
+            // console.log(this.atend)
+
+
+            // this.protocolo = filtros.protocolo
+            // this.titulo = filtros.titulo
+            // this.provedor = filtros.provedor.nome
+            // this.status = 'Aguardando'
+            // this.analista = filtros.user.nome
+        },
+
+    },
 }
 
 </script>
