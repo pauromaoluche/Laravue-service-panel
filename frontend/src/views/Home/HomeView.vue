@@ -32,21 +32,21 @@ export default {
             user = this.users;
             filtros = this.data;
             //Verifica atendimentos para selecionar setores
-            if (this.atends != 0) {
+            if (this.atends !== 0) {
                 //Verifica setores para selecionar usuarios
                 if (this.setors != 0) {
                     //Tras todos atendimentos com o base no id do setor
                     filtros = this.data.filter(data => {
-                        return data.setor_id == this.setors
+                        return data.setor_id.id == this.setors
                     })
                     if (user != 0) {
                         //Tras todos usuarios vinculados a aquele setor
-                        filtros = this.data.filter(data => {
-                            return data.user.name.includes(user)
+                        filtros = filtros.filter(data => {
+                            return data.user_id.id == user
                         })
                     } else {
                         filtros = this.data.filter(data => {
-                            return data.setor_id == this.setors
+                            return data.setor_id.id == this.setors
                         })
                     }
                 } else {
@@ -68,6 +68,7 @@ export default {
         },
 
         async datasFilter(filtersData) {
+
             this.atends = filtersData
             if (this.atends == 0) {
                 this.data = []

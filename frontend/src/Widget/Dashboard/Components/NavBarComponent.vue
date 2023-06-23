@@ -39,7 +39,7 @@
                         <select v-model="selectedUser" class="form-select" @change="onChange3($event)"
                             aria-label="Default select example">
                             <option value=0>Todos</option>
-                            <option v-for="user in itemFiltred" :key="user.id">{{ user.name }}</option>
+                            <option :value="user.id" v-for="user in itemFiltred" :key="user.id">{{ user.name }}</option>
                             <!-- <option v-for="(user, index) in data" :key="index" > {{ index }} {{ user.name }}</option> -->
                         </select>
                     </div>
@@ -75,8 +75,11 @@ export default {
                 filtros = this.user
             } else {
                 filtros = this.user.filter(data => {
-                    return data.setor_id == this.selectedSetor
+                    //return data.atendimentos.setor_id == 3
+                    //return data.atendimentos.id == 2
+                    return data.atendimentos.some(atendimentos => atendimentos.setor_id === parseInt(this.selectedSetor));
                 })
+
             }
 
             return filtros
@@ -111,12 +114,13 @@ export default {
             if (this.selected == 0 || this.selectedSetor == 0) {
                 this.selectedUser = 0
             } else {
+
                 this.$emit('emitUser', event.target.value);
             }
         },
 
         async getUsers() {
-            const resp = await api.get('users')
+            const resp = await api.get('usersAtend')
             if (resp.status == 200) {
                 this.user = resp.data
             } else {
