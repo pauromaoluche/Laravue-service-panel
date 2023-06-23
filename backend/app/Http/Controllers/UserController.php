@@ -21,6 +21,13 @@ class UserController extends Controller
         return $user;
     }
 
+    public function user_atends()
+    {
+        $user = User::with(['atendimentos'])->get();
+
+        return $user;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
