@@ -9,37 +9,47 @@ class Atendimento extends Model
 {
 
     protected $fillable = [
-        'setor_id',
+        'gerado_por',
         'provedor_id',
+        'service_type_id',
         'prioridade',
         'protocolo',
         'data_prev',
         'desc',
-        'user_id'
+        'user_id',
+        'setor_id'
     ];
 
     protected $hidden = [
-        'updated_at',
+        
     ];
 
     protected $casts = [
-        'created_at'  => 'date:d-m-Y',
-        'data_prev' => 'date:d-m-Y',
+        'created_at'  => 'date:d/m/Y',
+        'data_prev' => 'date:d/m/Y',
     ];
 
     use HasFactory;
 
-    public function provedor()
+    public function provedor_id()
     {
-        return $this->belongsTo(Provedor::class);
+        return $this->belongsTo(Provedor::class, 'provedor_id');
     }
 
-    public function user()
+    public function user_id()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function setor(){
-        return $this->belongsTo(Setor::class);
+    public function setor_id(){
+        return $this->belongsTo(Setor::class, 'setor_id');
+    }
+
+    public function gerado_por(){
+        return $this->belongsTo(User::class, 'gerado_por');
+    }
+
+    public function service_type_id(){
+        return $this->belongsTo(ServiceType::class, 'service_type_id');
     }
 }

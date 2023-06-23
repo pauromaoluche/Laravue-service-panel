@@ -15,15 +15,15 @@ return new class extends Migration
     {
         Schema::create('atendimentos', function (Blueprint $table) {
             $table->id();
-            $table->string('gerado_por')
-                ->references('id')->on('users');
-            $table->foreignId('provedor_id')
-                ->constrained()
+            $table->unsignedBigInteger('gerado_por');
+            $table->foreign('gerado_por')->references('id')->on('users');
+            $table->unsignedBigInteger('provedor_id');
+            $table->foreign('provedor_id')->references('id')->on('provedors')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->foreignId('service_type_id')
-            ->constrained()
-            ->cascadeOnUpdate();
+                ->constrained()
+                ->cascadeOnUpdate();
             $table->integer('prioridade');
             $table->integer('protocolo');
             $table->date('data_prev');

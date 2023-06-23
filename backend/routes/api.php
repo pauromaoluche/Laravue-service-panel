@@ -23,6 +23,8 @@ Route::post('login',[AuthController::class, 'login']);
 
 Route::resource('users', UserController::class);
 
+Route::get('usersAtend',[UserController::class, 'user_atends']);
+
 Route::resource('atend', AtendimentosController::class);
 
 Route::resource('prov', ProvedorController::class);

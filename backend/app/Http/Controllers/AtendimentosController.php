@@ -17,7 +17,7 @@ class AtendimentosController extends Controller
     public function index()
     {
 
-        $atendimentos = Atendimento::with(['provedor', 'user', 'setor'])->get();
+        $atendimentos = Atendimento::with(['provedor_id', 'user_id', 'setor_id', 'gerado_por', 'service_type_id'])->get();
 
         // $atendimentos = Atendimento::join('provedors', 'provedors.id', '=', 'atendimentos.provedor_id')
         //     ->join('users', 'users.id', '=', 'atendimentos.user_id')
@@ -45,7 +45,7 @@ class AtendimentosController extends Controller
      */
     public function show($id)
     {
-        $atendimentos = Atendimento::with(['provedor', 'user', 'setor'])->where('id', $id)->get();
+        $atendimentos = Atendimento::with(['provedor', 'user', 'setor', 'gerado_por', 'service_type'])->where('id', $id)->get();
 
         return $atendimentos;
     }
