@@ -52,4 +52,8 @@ class Atendimento extends Model
     public function service_type_id(){
         return $this->belongsTo(ServiceType::class, 'service_type_id');
     }
+
+    public function status_atend(){
+        return $this->belongsTo(StatusAtend::class, 'status_atend');
+    }
 }

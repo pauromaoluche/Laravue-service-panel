@@ -4,6 +4,7 @@ use App\Http\Controllers\AtendimentosController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProvedorController;
 use App\Http\Controllers\SetorController;
+use App\Http\Controllers\StatusAtendController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,8 @@ Route::resource('atend', AtendimentosController::class);
 Route::resource('prov', ProvedorController::class);
 
 Route::resource('setors', SetorController::class);
+
+Route::resource('statusAtend', StatusAtendController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

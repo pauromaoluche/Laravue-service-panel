@@ -32,7 +32,8 @@ class AtendimentoFactory extends Factory
             'data_prev' => $dataFinal,
             'desc' => $this->faker->sentence,
             'user_id' => rand(1, 20),
-            'setor_id' => rand(1, 4)
+            'setor_id' => rand(1, 4),
+            'status_atend' => rand(1, 4)
         ];
     }
 }

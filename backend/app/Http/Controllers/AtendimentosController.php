@@ -17,7 +17,7 @@ class AtendimentosController extends Controller
     public function index()
     {
 
-        $atendimentos = Atendimento::with(['provedor_id', 'user_id', 'setor_id', 'gerado_por', 'service_type_id'])->get();
+        $atendimentos = Atendimento::with(['provedor_id', 'user_id', 'setor_id', 'gerado_por', 'service_type_id', 'status_atend'])->get();
 
         // $atendimentos = Atendimento::join('provedors', 'provedors.id', '=', 'atendimentos.provedor_id')
         //     ->join('users', 'users.id', '=', 'atendimentos.user_id')

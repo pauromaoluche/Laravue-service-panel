@@ -28,6 +28,7 @@ return new class extends Migration
             $table->integer('protocolo');
             $table->date('data_prev');
             $table->text('desc');
+            $table->text('desc_fim')->nullable();
             $table->foreignId('user_id')
                 ->constrained()
                 ->cascadeOnUpdate();
@@ -35,6 +36,11 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+                $table->foreignId('status_atend')
+                ->constrained()
+                ->cascadeOnUpdate();
+            $table->dateTime('data_agend')->nullable()->default(null);
+            $table->dateTime('data_fim')->nullable()->default(null);
             $table->timestamps();
         });
     }
