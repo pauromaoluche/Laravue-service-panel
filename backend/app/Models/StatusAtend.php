@@ -10,11 +10,11 @@ class StatusAtend extends Model
 
     protected $fillable = [
         'status_atend',
-        'descri_status'
+        'descri_status',
+        'color'
     ];
 
     protected $hidden = [
-        'id',
         'updated_at',
         'created_at',
     ];

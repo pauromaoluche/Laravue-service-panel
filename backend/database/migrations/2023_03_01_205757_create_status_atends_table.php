@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('status_atend')->unique();
             $table->string('descri_status');
+            $table->string('color');
         });
     }
 

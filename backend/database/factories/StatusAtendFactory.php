@@ -25,10 +25,25 @@ class StatusAtendFactory extends Factory
             $desc = $descri[$count];
         }
 
+        switch ($status){
+            case 'AG':
+                $color = '56, 56, 255';
+                break;
+            case 'A':
+                $color = '185, 185, 0';
+                break;
+            case 'C':
+                $color = '0, 128, 0';
+                break;
+            case 'FS':
+                $color ='255, 0, 0';
+        }
+
         $count++;
         return [
             'status_atend' => $status,
-            'descri_status' => $desc
+            'descri_status' => $desc,
+            'color' => $color
         ];
     }
 }
