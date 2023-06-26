@@ -10,18 +10,18 @@
                     <ul class="list-group-flush">
                         <li class="list-group">
                             <label><b>Tipo de O.S:</b></label>
-                            <input type="text" class="form-control" id="floatingInput" disabled :value="data.titulo">
+                            <input type="text" class="form-control" id="floatingInput" disabled :value="data.service_type_id.name">
                         </li>
                         <li class="row">
                             <div class="col-3">
                                 <label><b>Gerador por:</b></label>
                                 <input type="text" class="form-control" disabled id="floatingInput"
-                                    :value="data.user.name">
+                                    :value="data.gerado_por.name">
                             </div>
                             <div class="col-3">
                                 <label><b>Provedor:</b></label>
                                 <input type="text" class="form-control" disabled id="floatingInput"
-                                    :value="data.provedor.nome">
+                                    :value="data.provedor_id.nome">
                             </div>
                             <div class="col-3">
                                 <label>Criado em</label>
@@ -31,7 +31,7 @@
                             <div class="col-3">
                                 <label>Previsto para</label>
                                 <input type="text" class="form-control" disabled id="floatingInput"
-                                    :value="data.created_at">
+                                    :value="data.data_prev">
                             </div>
                         </li>
                         <li class="row">
@@ -39,13 +39,13 @@
                                 <label><b>Status:</b></label>
                                 <!-- <input type="text" class="form-control" id="floatingInput" :value="data.titulo"> -->
                                 <input type="text" class="form-control" disabled id="floatingInput"
-                                    value="Aguardando agendamento">
+                                    :value="data.status_atend.descri_status">
                             </div>
                             <div class="col-6">
                                 <label><b>Cargo/Tecnico:</b></label>
                                 <!-- <input type="text" class="form-control" id="floatingInput" :value="data.titulo"> -->
                                 <input type="text" class="form-control" disabled id="floatingInput"
-                                    :value="data.user.name">
+                                    :value="data.user_id.name">
                             </div>
                         </li>
 
@@ -84,6 +84,13 @@ export default {
             this.$emit('func', false)
         },
     },
+
+    computed: {
+        filter(){
+            console.log(this.atend)
+            return alert('sim')
+        }
+    }
 };
 </script>
   

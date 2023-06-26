@@ -24,7 +24,6 @@
                 </div>
                 <div class="offcanvas-body">
                     <div class="container d-flex justify-content-end">
-
                         <select v-model="selected" @change="onChange1($event)" class="form-select"
                             aria-label="Default select example">
                             <option value=0>Selecione um</option>
@@ -43,6 +42,24 @@
                             <!-- <option v-for="(user, index) in data" :key="index" > {{ index }} {{ user.name }}</option> -->
                         </select>
                     </div>
+
+                    <div class="group container mt-3">
+                        <div v-for="data in status" :key="data.status_atend" class="btn-group" role="group"
+                            aria-label="Basic checkbox toggle button group">
+                            <input type="checkbox" class="btn-check" :id="data.status_atend" autocomplete="off">
+
+
+                            <label v-if="data.status_atend == 'AG'" :class="data.status_atend"
+                                class="btn btn-outline-primary" :for="data.status_atend">{{ data.descri_status }}</label>
+                            <label v-else-if="data.status_atend == 'A'" :class="data.status_atend"
+                                class="btn btn-outline-warning" :for="data.status_atend">{{ data.descri_status }}</label>
+                            <label v-else-if="data.status_atend == 'C'" :class="data.status_atend"
+                                class="btn btn-outline-success" :for="data.status_atend">{{ data.descri_status }}</label>
+                            <label v-else-if="data.status_atend == 'FS'" :class="data.status_atend"
+                                class="btn btn-outline-danger" :for="data.status_atend">{{ data.descri_status }}</label>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </nav>
@@ -60,6 +77,7 @@ export default {
         return {
             user: [],
             setor: [],
+            status: [],
             selected: 0,
             selectedUser: 0,
             selectedSetor: 0
@@ -90,6 +108,7 @@ export default {
     mounted() {
         this.getUsers();
         this.getSetors();
+        this.getStatus();
     },
 
     methods: {
@@ -135,7 +154,17 @@ export default {
             } else {
                 console.error("erro na api")
             }
-        }
+        },
+
+        async getStatus() {
+            const resp = await api.get('statusAtend')
+            if (resp.status == 200) {
+                this.status = resp.data
+                console.log(this.status)
+            } else {
+                console.error("erro na api")
+            }
+        },
     }
 }
 
@@ -221,5 +250,37 @@ export default {
         width: 150px;
         margin-left: 10px;
     }
-}
-</style>
+
+    .group {
+        display: flex;
+        justify-content: right;
+
+        .btn-group {
+            margin: 0.3px;
+
+            label {
+                border-radius: 0px;
+                color: rgb(0, 0, 0);
+                border: 1px solid #ced4da
+            }
+
+            input.btn-check:checked + label{
+                color: white;
+                text-shadow: 2px 4px 5px #000000;
+            }
+
+            label.AG {
+                border-top-left-radius: 0.375rem !important;
+            }
+
+            label.FS {
+                border-top-right-radius: 0.375rem !important;
+            }
+        }
+    }
+
+
+
+
+
+}</style>

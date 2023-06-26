@@ -8,9 +8,10 @@
                     <th scope="col">Prioridade</th>
                     <th width="100" scope="col">Criado</th>
                     <th width="100" scope="col">Previsto</th>
+                    <th width="100" scope="col">Status</th>
                     <th scope="col">Descrição</th>
                     <th scope="col">Analista</th>
-                    <th style="text-align: center;" scope="col">Ações</th>
+                    <th width="100" style="text-align: center;" scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,7 +21,7 @@
                 </ModalComponent>
                 <tr v-for="atend in data" :key="atend.id" class="table-sm">
                     <th scope="row">{{ atend.protocolo }}</th>
-                    <td class="name">{{ atend.provedor.nome }}</td>
+                    <td class="name">{{ atend.provedor_id.nome }}</td>
                     <td class="flag" v-if="atend.prioridade == 1">
                         <span><font-awesome-icon icon="flag" color="green" /></span>
                     </td>
@@ -32,8 +33,9 @@
                     </td>
                     <td>{{ atend.created_at }}</td>
                     <td>{{ atend.data_prev }}</td>
+                    <td id="status" :style="`background-color: rgba(${atend.status_atend.color})`"><span color="white">{{ atend.status_atend.descri_status }}</span></td>
                     <td>{{ atend.desc.substring(0, 20) + ".." }}</td>
-                    <td>{{ atend.user.name }}</td>
+                    <td>{{ atend.user_id.name }}</td>
 
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                         <button type="button" class="btn btn-outline-success" @click="abrirModal(atend.id)">Ver</button>
@@ -120,6 +122,11 @@ export default {
     background-color: white;
     border-radius: 10px;
     padding: 10px;
+}
+
+#status{
+     color: white;
+     text-align: center;
 }
 
 td {
